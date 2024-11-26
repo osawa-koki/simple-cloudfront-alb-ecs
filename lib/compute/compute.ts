@@ -4,6 +4,7 @@ import * as ecs from 'aws-cdk-lib/aws-ecs';
 import * as ecsPatterns from 'aws-cdk-lib/aws-ecs-patterns';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 
 interface ComputeStackProps extends cdk.StackProps {
   stackName: string;
@@ -93,6 +94,22 @@ export default class ComputeStack extends cdk.Stack {
       targetUtilizationPercent: 70,
       scaleInCooldown: cdk.Duration.seconds(60),
       scaleOutCooldown: cdk.Duration.seconds(60),
+    });
+
+    // ALBリスナーのカスタムルール追加
+    const listener = fargateService.listener;
+    listener.addAction('AllowSpecificHeader', {
+      priority: 10,
+      conditions: [
+        elbv2.ListenerCondition.httpHeader(process.env.CLOUDFRONT_SECRET_HEADER_KEY!, [process.env.CLOUDFRONT_SECRET_HEADER_VALUE!]),
+      ],
+      action: elbv2.ListenerAction.forward([fargateService.targetGroup]),
+    });
+    listener.addAction('DenyWithoutHeader', {
+      action: elbv2.ListenerAction.fixedResponse(403, {
+        contentType: 'text/plain',
+        messageBody: 'Forbidden',
+      }),
     });
 
     fargateService.service.connections.allowFrom(
