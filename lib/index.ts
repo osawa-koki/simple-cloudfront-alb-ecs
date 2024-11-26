@@ -4,6 +4,7 @@ import { Construct } from 'constructs';
 import NetworkStack from './network/network';
 import ComputeStack from './compute/compute';
 import CdnStack from './cdn/cdn';
+import OutputStack from './output/output';
 
 export class IndexStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -27,5 +28,11 @@ export class IndexStack extends cdk.Stack {
       alb: computeStack.fargateService.loadBalancer,
     });
     cdnStack.addDependency(computeStack);
+
+    const outputStack = new OutputStack(this, 'OutputStack', {
+      stackName: `${process.env.BASE_STACK_NAME!}-output`,
+      distribution: cdnStack.distribution,
+    });
+    outputStack.addDependency(cdnStack);
   }
 }
