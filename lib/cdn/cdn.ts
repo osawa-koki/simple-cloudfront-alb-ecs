@@ -21,7 +21,7 @@ export default class CdnStack extends cdk.Stack {
     });
 
     // CloudFront Distributionの作成
-    this.distribution = new cloudfront.Distribution(this, 'Distribution', {
+    const distribution = new cloudfront.Distribution(this, 'Distribution', {
       defaultBehavior: {
         origin: new origins.LoadBalancerV2Origin(alb, {
           protocolPolicy: cloudfront.OriginProtocolPolicy.HTTP_ONLY,
@@ -33,5 +33,7 @@ export default class CdnStack extends cdk.Stack {
       },
       priceClass: cloudfront.PriceClass.PRICE_CLASS_200,
     });
+
+    this.distribution = distribution;
   }
 }
