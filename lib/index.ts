@@ -32,6 +32,7 @@ export class IndexStack extends cdk.Stack {
     const outputStack = new OutputStack(this, 'OutputStack', {
       stackName: `${process.env.BASE_STACK_NAME!}-output`,
       distribution: cdnStack.distribution,
+      fargateService: computeStack.fargateService,
     });
     outputStack.addDependency(cdnStack);
   }

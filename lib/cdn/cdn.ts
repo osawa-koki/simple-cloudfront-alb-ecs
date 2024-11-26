@@ -25,6 +25,9 @@ export default class CdnStack extends cdk.Stack {
       defaultBehavior: {
         origin: new origins.LoadBalancerV2Origin(alb, {
           protocolPolicy: cloudfront.OriginProtocolPolicy.HTTP_ONLY,
+          customHeaders: {
+            'aaa': 'bbb'
+          },
         }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
