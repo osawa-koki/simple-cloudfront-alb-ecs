@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as ecsPatterns from 'aws-cdk-lib/aws-ecs-patterns';
+
 interface OutputStackProps extends cdk.StackProps {
   stackName: string;
   distribution: cloudfront.Distribution;
