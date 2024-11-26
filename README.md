@@ -2,7 +2,22 @@
 
 ☢️☢️☢️ `CloudFront + ALB + ECS`のシンプルな構成のテンプレート！  
 
+[![ci](https://github.com/osawa-koki/simple-cloudfront-alb-ecs/actions/workflows/ci.yml/badge.svg)](https://github.com/osawa-koki/simple-cloudfront-alb-ecs/actions/workflows/ci.yml)
+[![cd](https://github.com/osawa-koki/simple-cloudfront-alb-ecs/actions/workflows/cd.yml/badge.svg)](https://github.com/osawa-koki/simple-cloudfront-alb-ecs/actions/workflows/cd.yml)
+[![Dependabot Updates](https://github.com/osawa-koki/simple-cloudfront-alb-ecs/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/osawa-koki/simple-cloudfront-alb-ecs/actions/workflows/dependabot/dependabot-updates)
+
 ![成果物](./fruit.gif)  
+
+## 技術スタック
+
+- AWS CDK
+  - TypeScript
+  - AWS CloudFormation
+- AWS CloudFront
+- AWS ALB
+- AWS ECS
+  - AWS Fargate
+  - (AWS ECR)
 
 ## 実行方法
 
@@ -47,3 +62,11 @@ aws cloudformation describe-stacks --stack-name ${BASE_STACK_NAME}-output --quer
 ```
 
 ALBへ直接アクセスはできず、CloudFrontを経由してのみアクセスできることが確認できます。  
+
+## めっちゃ余談
+
+Googleが開発した[Emoji Kitchen](https://emojikitchen.dev/)、放射線の絵文字を動物をミックスさせるとめっちゃ怖い、、、😱😱😱  
+他にも結構ヤバイのがあるらしい、、、  
+「🍄」と「☁️」のミックスとかは削除されたらしいけど、、、😱😱😱  
+
+![emoji-kitchen](./emoji-kitchen.gif)  
